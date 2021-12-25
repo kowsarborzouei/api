@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { MonsterList, MonsterPage } from "./components";
+import { BrowserRouter, Route, Routes, Link, Outlet } from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Menu />}>
+            <Route index element={<div>welcome to monster app</div>} />
+            <Route path="monsters" element={<MonsterList />}>
+              <Route path=":monsterID" element={<MonsterPage />} />
+            </Route>
+          </Route>
+          <Route path="about" element={<div>About page</div>} />
+        </Routes>
+      </BrowserRouter>
   );
 }
+const Menu = () => (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/monsters">Monsters</Link>
+        </li>
+      </ul>
+      <Outlet />
+      <footer>this is footer</footer>
+    </div>
+  );
+
 
 export default App;
